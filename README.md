@@ -1,1 +1,1 @@
-# interesting_problems
+This repo contains solutions to interesting problems, tasks and puzzles in Python
