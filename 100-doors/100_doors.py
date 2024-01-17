@@ -28,6 +28,15 @@ class Doors:
                 yield i
         yield number
 
+    def get_all_divisors_square_number_2_delimeters(self, number):
+        divisors_list = []
+        for i in range (1, int(number ** 0.5) + 1):
+            if number % i == 0:
+                # Add 2 numbers during one iteration
+                divisors_list.append(i)
+                divisors_list.append(number // i)
+        return set(divisors_list)
+
     def get_all_divisors_prime_factor(self, number):
         primes = self._prime_factor(number)
         primes_counted = collections.Counter(primes)
@@ -59,7 +68,7 @@ class Doors:
         return acc
 
     def get_open_doors(self, wrap_function):
-        for door_number in range(1, len(self.doors_10000)):
+        for door_number in range(1, len(self.doors)):
             list_of_divisors = len(list(wrap_function(door_number)))
             if list_of_divisors % 2 != 0:
                 self.list_open_doors.append(door_number)
@@ -79,6 +88,15 @@ if __name__ == "__main__":
     print("Improved solution, loop through half of divisors - doors.get_all_divisors_generator")
     start_time = time.process_time()
     print(doors.get_open_doors(doors.get_all_divisors_generator))
+    end_time = time.process_time()
+    result = end_time - start_time
+    print("Execution time: {:.7f} ms".format(result))
+    print("------------------------------\n")
+
+    doors = Doors()
+    print("Improved solution, loop through root square of number - doors.get_all_divisors_square_number_2_delimeters")
+    start_time = time.process_time()
+    print(doors.get_open_doors(doors.get_all_divisors_square_number_2_delimeters))
     end_time = time.process_time()
     result = end_time - start_time
     print("Execution time: {:.7f} ms".format(result))
